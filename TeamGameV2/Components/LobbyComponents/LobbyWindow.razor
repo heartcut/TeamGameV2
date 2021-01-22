@@ -1,21 +1,40 @@
-﻿
+﻿@inject NavigationManager navManager
 
 
 
 <lobby-table>
-  
-  <lobby-item><LobbySquare lobby="1" /></lobby-item>
-  <lobby-item><LobbySquare lobby="2" /></lobby-item>
-  <lobby-item><LobbySquare lobby="3" /></lobby-item>
-  <lobby-item><LobbySquare lobby="4" /></lobby-item>
-  <lobby-item><LobbySquare lobby="5" /></lobby-item>
-  <lobby-item><LobbySquare lobby="6" /></lobby-item>
-  <lobby-item><LobbySquare lobby="7" /></lobby-item>
-  <lobby-item><LobbySquare lobby="8" /></lobby-item>
-  <lobby-item><LobbySquare lobby="9" /></lobby-item>
-  
+    
+    <lobby-item @onclick="args => GoToLobby(1)"><LobbySquare lobby="1" /></lobby-item>
+    <lobby-item @onclick="args => GoToLobby(2)"><LobbySquare lobby="2" /></lobby-item>
+    <lobby-item @onclick="args => GoToLobby(3)"><LobbySquare lobby="3" /></lobby-item>
+    <lobby-item @onclick="args => GoToLobby(4)"><LobbySquare lobby="4" /></lobby-item>
+    <lobby-item @onclick="args => GoToLobby(5)"><LobbySquare lobby="5" /></lobby-item>
+    <lobby-item @onclick="args => GoToLobby(6)"><LobbySquare lobby="6" /></lobby-item>
+    <lobby-item @onclick="args => GoToLobby(7)"><LobbySquare lobby="7" /></lobby-item>
+    <lobby-item @onclick="args => GoToLobby(8)"><LobbySquare lobby="8" /></lobby-item>
+    <lobby-item @onclick="args => GoToLobby(9)"><LobbySquare lobby="9" /></lobby-item>
+
 </lobby-table>
 
 @code {
 
+    void GoToLobby(int lobbynumber)
+    {
+
+        DatabaseModel DBVars = ReadDB.GetVars(lobbynumber);
+        if (DBVars.PlayersInLobby>3) //lobby full
+        {
+            navManager.NavigateTo("/lobbyfull");
+        }
+        else
+        {
+            navManager.NavigateTo("/game/"+lobbynumber);
+        }
+
+
+    }
+    protected override async Task OnInitializedAsync()
+    {
+    }
+    
 }

@@ -1,0 +1,20 @@
+﻿@page "/game"
+@page "/game/{lobbynumber:int}"
+@*below is for the code behind to work*@
+@inherits TeamGameV2.PageLogic.MainGamePage
+
+
+<div>you are in lobby: @lobby</div>
+<cant-select-zone>
+
+    <game-window>
+
+        <player1window></player1window>
+        <player2window></player2window>
+        <player3window></player3window>
+        <player4window></player4window>
+
+    </game-window>
+
+
+</cant-select-zone>

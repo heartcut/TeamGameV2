@@ -4,4 +4,17 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Include="wwwroot\Media\bcurs.png" />
+    <None Include="wwwroot\Media\gcurs.png" />
+    <None Include="wwwroot\Media\rainbowcurse.png" />
+    <None Include="wwwroot\Media\rcurs.png" />
+    <None Include="wwwroot\Media\ycurs.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Dapper" Version="2.0.78" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.2" />
+  </ItemGroup>
+
 </Project>

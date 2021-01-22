@@ -1,16 +1,16 @@
 ﻿
-
+@using TeamGameV2.DatabaseConnection 
 
 <h3 style="color:black">Lobby @lobby</h3>
-@if (playersinlobby < 4)
+@if (@DBVars.PlayersInLobby < 4)
 {
-    <div style="color:lawngreen;font-size:x-large">@playersinlobby / 4</div>
+    <div style="color:lawngreen;font-size:x-large">@DBVars.PlayersInLobby / 4</div>
 
 }
 else
 {
-    <div style="color:red;font-size:x-large">@playersinlobby / 4</div>
-    <div style="color:red;font-size:x-large">This Lobby is Full</div>
+    <div style="color:red;font-size:x-large">@DBVars.PlayersInLobby / 4</div>
+    <div style="color:red;font-size:x-large">Full</div>
 
 }
 
@@ -20,6 +20,15 @@ else
     [Parameter]
     public int lobby { get; set; }
 
-    private int playersinlobby = 3;
+    DatabaseModel DBVars;
+
+    protected override async Task OnInitializedAsync()
+    {
+
+        DBVars = ReadDB.GetVars(lobby);
+
+    }
+    
+
 
 }
