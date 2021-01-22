@@ -1,0 +1,77 @@
+
+
+
+html {
+    background-color: black;
+    color: grey;
+    font-family: 'Share Tech', sans-serif;
+}
+
+lobby-table {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    grid-template-rows: 201px 201px 201px;
+}
+
+lobby-item{
+
+    background-color:dimgrey;
+    border:thin black;
+
+}
+
+lobby-window {
+    text-align: center;
+    /*border: dashed 5px red;*/
+    background: black;
+    border-radius: 1em;
+    padding: 1em;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+    width: 1071px;
+    height: 603px;
+}
+
+game-window {
+
+    /*border: dashed 5px white;*/
+    margin: auto;
+    width: 95%;
+    height: 95vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+
+
+
+
+
+
+
+
+#blazor-error-ui {
+    background: lightyellow;
+    bottom: 0;
+    box-shadow: 0 -1px 2px rgba(0, 0, 0, 0.2);
+    display: none;
+    left: 0;
+    padding: 0.6rem 1.25rem 0.7rem 1.25rem;
+    position: fixed;
+    width: 100%;
+    z-index: 1000;
+}
+
+#blazor-error-ui .dismiss {
+    cursor: pointer;
+    position: absolute;
+    right: 0.75rem;
+    top: 0.5rem;
+}
+
+
