@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using TeamGameV2.Javascript;
 
 namespace TeamGameV2
 {
@@ -27,6 +28,8 @@ namespace TeamGameV2
         {
             services.AddRazorPages();
             services.AddServerSideBlazor();
+            //for my javascript
+            services.AddScoped<BrowserService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

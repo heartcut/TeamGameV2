@@ -1,0 +1,79 @@
+﻿@if (PlayerIAm != 1)
+{
+    <img src="/media/bcurs.png" style="position: absolute;top:@GetPlayerMouse(MV,DM,1,"y");left:@GetPlayerMouse(MV,DM,1,"x");z-index:3;">
+                                                                              
+}                                                                             
+@if (PlayerIAm != 2)                                                        
+{                                                                             
+    <img src="/media/rcurs.png" style="position: absolute;top:@GetPlayerMouse(MV,DM,2,"y");left:@GetPlayerMouse(MV,DM,2,"x");z-index:3;">
+                                                                              
+}                                                                             
+@if (PlayerIAm != 3)                                                        
+{                                                                             
+    <img src="/media/gcurs.png" style="position: absolute;top:@GetPlayerMouse(MV,DM,3,"y");left:@GetPlayerMouse(MV,DM,3,"x");z-index:3;">
+                                                                              
+}                                                                             
+@if (PlayerIAm != 4)                                                        
+{                                                                             
+    <img src="/media/ycurs.png" style="position: absolute;top:@GetPlayerMouse(MV,DM,4,"y");left:@GetPlayerMouse(MV,DM,4,"x");z-index:3;">
+
+}
+
+@code {
+
+    [Parameter]
+    public DatabaseModel DM { get; set; }
+    [Parameter]
+    public MyValues MV { get; set; }
+    [Parameter]
+    public int MyLobbyNum { get; set; }
+    [Parameter]
+    public int PlayerIAm { get; set; }
+    
+
+    public static string GetPlayerMouse(MyValues MV, DatabaseModel DM, int whichplayer, string xory)
+    {
+        switch (whichplayer)
+        {
+            case 1:
+                if (xory == "x")
+                {
+                    return (MV.Width / 2) + DM.P1Xcords + "px";
+                }
+                else
+                {
+                    return (MV.Height / 2) + DM.P1Ycords + "px";
+                }
+            case 2:
+                if (xory == "x")
+                {
+                    return ((MV.Width / 2) + DM.P2Xcords).ToString() + "px";
+                }
+                else
+                {
+                    return ((MV.Height / 2) + DM.P2Ycords).ToString() + "px";
+                }
+            case 3:
+                if (xory == "x")
+                {
+                    return ((MV.Width / 2) + DM.P3Xcords).ToString() + "px";
+                }
+                else
+                {
+                    return ((MV.Height / 2) + DM.P3Ycords).ToString() + "px";
+                }
+            case 4:
+                if (xory == "x")
+                {
+                    return ((MV.Width / 2) + DM.P4Xcords).ToString() + "px";
+                }
+                else
+                {
+                    return ((MV.Height / 2) + DM.P4Ycords).ToString() + "px";
+                }
+            default:
+                return "0px";
+        }
+    }
+
+}

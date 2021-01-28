@@ -1,20 +1,52 @@
-﻿@page "/game"
-@page "/game/{lobbynumber:int}"
+﻿
 @*below is for the code behind to work*@
-@inherits TeamGameV2.PageLogic.MainGamePage
+@inherits TeamGameV2.PageLogic.MainGamePageLogic
 
 
-<div>you are in lobby: @lobby</div>
-<cant-select-zone>
+
+
+<div style="color:white;">you are in lobby: @lobbynumber</div>
+<div style="color:white;">you player: @playernumber</div>
+<div style="color:white;">total players in lobby: @DM.PlayersInLobby</div>
+<cant-select-zone @onmousemove="MV.MouseMoved">
+
+    <PlayerCursors DM="DM" MV="MV" MyLobbyNum="lobbynumber" PlayerIAm="playernumber"/>
 
     <game-window>
 
-        <player1window></player1window>
-        <player2window></player2window>
-        <player3window></player3window>
-        <player4window></player4window>
+        <player1window>
+
+            <ActiveGameComponent lobbynumber="@MV.MyLobby" gamenumber="1" />
+
+            <PlayerHealthBar myhealth="7" playercolor="blue" />
+
+        </player1window>
+        <player2window>
+
+            <ActiveGameComponent lobbynumber="@MV.MyLobby" gamenumber="1" />
+
+            <PlayerHealthBar myhealth="6" playercolor="red" />
+
+        </player2window>
+        <player3window>
+
+            <ActiveGameComponent lobbynumber="@MV.MyLobby" gamenumber="1" />
+
+            <PlayerHealthBar myhealth="4" playercolor="green" />
+
+        </player3window>
+        <player4window>
+
+            <ActiveGameComponent lobbynumber="@MV.MyLobby" gamenumber="1" />
+
+            <PlayerHealthBar myhealth="10" playercolor="yellow" />
+
+        </player4window>
 
     </game-window>
-
+    <a style="color:white;">@MV.mycursx</a>
+    <a style="color:white;">@MV.mycursy</a>
+    <a style="color:white;">@MV.Width</a>
+    <a style="color:white;">@MV.Height</a>
 
 </cant-select-zone>

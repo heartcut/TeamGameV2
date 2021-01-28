@@ -1,0 +1,82 @@
+﻿
+<h2 id="game-title">Find All Sixes</h2>
+<br />
+<div class="sixnine">
+    <span @onclick="(() => IsSix(0))">@sna[0]</span> <span @onclick="(() => IsSix(1))">@sna[1]</span>
+    <span @onclick="(() => IsSix(2))">@sna[2]</span> <span @onclick="(() => IsSix(3))">@sna[3]</span>
+    <span @onclick="(() => IsSix(4))">@sna[4]</span> <span @onclick="(() => IsSix(5))">@sna[5]</span>
+    <span @onclick="(() => IsSix(6))">@sna[6]</span> <span @onclick="(() => IsSix(7))">@sna[7]</span>
+</div>
+<div class="sixnine">
+    <span @onclick="(() => IsSix(8))">@sna[8]</span> <span @onclick="(() => IsSix(9))">@sna[9]</span>
+    <span @onclick="(() => IsSix(10))">@sna[10]</span> <span @onclick="(() => IsSix(11))">@sna[11]</span>
+    <span @onclick="(() => IsSix(12))">@sna[12]</span> <span @onclick="(() => IsSix(13))">@sna[13]</span>
+    <span @onclick="(() => IsSix(14))">@sna[14]</span> <span @onclick="(() => IsSix(15))">@sna[15]</span>
+</div>
+<div class="sixnine">
+    <span @onclick="(() => IsSix(16))">@sna[16]</span> <span @onclick="(() => IsSix(17))">@sna[17]</span>
+    <span @onclick="(() => IsSix(18))">@sna[18]</span> <span @onclick="(() => IsSix(19))">@sna[19]</span>
+    <span @onclick="(() => IsSix(20))">@sna[20]</span> <span @onclick="(() => IsSix(21))">@sna[21]</span>
+    <span @onclick="(() => IsSix(22))">@sna[22]</span> <span @onclick="(() => IsSix(23))">@sna[23]</span>
+
+</div>
+<div class="sixnine">
+    <span @onclick="(() => IsSix(24))">@sna[24]</span> <span @onclick="(() => IsSix(25))">@sna[25]</span>
+    <span @onclick="(() => IsSix(26))">@sna[26]</span> <span @onclick="(() => IsSix(27))">@sna[27]</span>
+    <span @onclick="(() => IsSix(28))">@sna[28]</span> <span @onclick="(() => IsSix(29))">@sna[29]</span>
+    <span @onclick="(() => IsSix(30))">@sna[30]</span> <span @onclick="(() => IsSix(31))">@sna[31]</span>
+</div>
+<div class="sixnine">@status</div>
+<div class="sixnine">@rightanswer</div>
+<div class="sixnine">@wronganswer</div>
+
+
+@code {
+
+    [Parameter]
+    public int answer1 { get; set; }
+    [Parameter]
+    public int answer2 { get; set; }
+    
+
+    //this is the onload overridded method
+    //you can do some kind of wait stuff idk but it works for now
+    protected override void OnInitialized()
+    {
+        //takes the position of the variable from the db and makes it a 6
+        sna[answer1] = "6";
+        sna[answer2] = "6";
+    }
+    public string[] sna = new string[32]
+    {
+            "9","9","9","9","9","9","9","9",
+            "9","9","9","9","9","9","9","9",
+            "9","9","9","9","9","9","9","9",
+            "9","9","9","9","9","9","9","9"
+        };
+    public string status;
+    public int rightanswer = 0;
+    public int wronganswer = 0;
+    public void IsSix(int a)
+    {
+        if (sna[a] == "6")
+        {
+            sna[a] = "9";
+            if (rightanswer == 1)
+            {
+                status = "youwin!";
+            }
+            rightanswer++;
+        }
+        else if (wronganswer >= 2)
+        {
+            status = "youlose";
+        }
+        else
+        {
+            wronganswer++;
+            status = wronganswer + " wronganswer" + rightanswer + " right answer";
+        }
+    }
+
+}

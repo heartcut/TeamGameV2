@@ -40,3 +40,34 @@ player4window {
     cursor: url(/media/ycurs.png) -2 -2,auto;
     color: white;
 }
+
+.playerhealth {
+    position: absolute;
+    bottom: 3px;
+    left: 33%;
+    color: white;
+}
+
+healthbubblealive {
+    height: 12px;
+    width: 12px;
+    padding: 0px;
+    border-radius: 100px;
+    transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
+    float: left;
+    margin-left: 1px;
+    border: solid 1px white;
+}
+healthbubbledead {
+    margin-left: 1px;
+    height: 12px;
+    width: 12px;
+    padding: 0px;
+    background-color: white;
+    border-radius: 100px;
+    transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
+    border:solid 1px white;
+    float: left;
+}
