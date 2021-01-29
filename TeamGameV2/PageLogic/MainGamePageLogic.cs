@@ -8,6 +8,7 @@ using TeamGameV2.Pages;
 using TeamGameV2.Components.GamePageComponents;
 using Microsoft.AspNetCore.SignalR;
 using TeamGameV2.Javascript;
+using TeamGameV2.PageLogic;
 
 
 namespace TeamGameV2.PageLogic

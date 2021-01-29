@@ -22,14 +22,14 @@
     public int myhealth { get; set; }
     [Parameter]
     public string playercolor { get; set; }
-    //public void HealthMinus()
-    //{
-    //    GameScript.play1hp--;
-    //    StateHasChanged();
-    //}
-    //public void HealthPlus()
-    //{
-    //    GameScript.play1hp++;
-    //    StateHasChanged();
-    //}
+    public void healthminus(int losthealth)
+    {
+        myhealth-=losthealth;
+        //statehaschanged();
+    }
+    public void healthplus(int gainedhealth)
+    {
+        myhealth+=gainedhealth;
+        //statehaschanged();
+    }
 }

@@ -1,5 +1,4 @@
-﻿
-@*below is for the code behind to work*@
+﻿@*below is for the code behind to work*@
 @inherits TeamGameV2.PageLogic.MainGamePageLogic
 
 
@@ -10,7 +9,7 @@
 <div style="color:white;">total players in lobby: @DM.PlayersInLobby</div>
 <cant-select-zone @onmousemove="MV.MouseMoved">
 
-    <PlayerCursors DM="DM" MV="MV" MyLobbyNum="lobbynumber" PlayerIAm="playernumber"/>
+    <PlayerCursors DM="DM" MV="MV" MyLobbyNum="lobbynumber" PlayerIAm="playernumber" />
 
     <game-window>
 
@@ -18,7 +17,8 @@
 
             <ActiveGameComponent lobbynumber="@MV.MyLobby" gamenumber="1" />
 
-            <PlayerHealthBar myhealth="7" playercolor="blue" />
+            <PlayerHealthBar myhealth="DM.P1Health" playercolor="blue" />
+            <HealthAnimation player="1" added="P1Add" subtracted="P1Subtract" />
 
         </player1window>
         <player2window>
@@ -41,12 +41,41 @@
 
             <PlayerHealthBar myhealth="10" playercolor="yellow" />
 
+
         </player4window>
 
     </game-window>
-    <a style="color:white;">@MV.mycursx</a>
-    <a style="color:white;">@MV.mycursy</a>
-    <a style="color:white;">@MV.Width</a>
-    <a style="color:white;">@MV.Height</a>
+
 
 </cant-select-zone>
+<a style="color:white;">@MV.mycursx</a>
+<a style="color:white;">@MV.mycursy</a>
+<a style="color:white;">@MV.Width</a>
+<a style="color:white;">@MV.Height</a>
+<div></div>
+<button @onclick="args => PlayerGainedHealth(1,1)">add p1 health</button>
+<button @onclick="args => PlayerLostHealth(1,-1)">minus p1 health</button>
+
+
+
+@code
+{
+    public bool P1Add = false;
+    public bool P1Subtract = false;
+
+    public async Task PlayerLostHealth(int player, int healthchange)
+    {
+        P1Subtract = true;
+        await Task.Delay(900);
+        WriteDB.UpdatePlayerHealth(MV.MyLobby, player, DM.P1Health, healthchange);
+        P1Subtract = false;
+    }
+    public async Task PlayerGainedHealth(int player, int healthchange)
+    {
+        P1Add = true;
+        await Task.Delay(900);
+        WriteDB.UpdatePlayerHealth(MV.MyLobby, player, DM.P1Health, healthchange);
+        P1Add = false;
+    }
+
+}

@@ -71,3 +71,47 @@ healthbubbledead {
     border:solid 1px white;
     float: left;
 }
+
+p1healthadd {
+    text-align:center;
+    position:absolute;
+    /*float: left;*/
+    color: grey;
+    bottom:24px;
+    left:36%;
+}
+
+p1healthslash {
+    animation-name:p1slash;
+    animation-duration:1s;
+    opacity:0;
+    float:left;
+    height: 6px;
+    width: 12px;
+    background-color:grey;
+    transform:translate(160px,52px);
+}
+
+@keyframes p1slash{
+
+
+    10% {
+        opacity:100;
+    }
+    20% {
+        transform:translate(150px,52px);
+    }
+    50% {
+        transform: translate(370px,52px);
+    }
+    80% {
+        transform: translate(370px,52px);
+        opacity: 100;
+    }
+    100% {
+        transform: translate(370px,52px);
+        opacity: 0;
+    }
+
+
+}

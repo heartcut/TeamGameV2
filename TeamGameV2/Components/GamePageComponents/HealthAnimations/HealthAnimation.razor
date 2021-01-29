@@ -1,0 +1,23 @@
+﻿
+@if (subtracted && player == 1)
+{
+    <HealthSubtractedAnimation P1Animation="true"/>
+}
+@if (added && player ==1 )
+{
+    <HealthAddedAnimation whichplayer="1"/>
+}
+
+
+
+
+@code {
+
+    [Parameter]
+    public int player { get; set; }
+    [Parameter]
+    public bool added { get; set; }
+    [Parameter]
+    public bool subtracted { get; set; }
+
+}

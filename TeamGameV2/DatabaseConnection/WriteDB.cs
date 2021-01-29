@@ -54,11 +54,28 @@ namespace TeamGameV2.DatabaseConnection
             var cs = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\source\ServerSideBlazor\DataAccessLibrary\Database1.mdf;Integrated Security=True;Connect Timeout=30";
             using var con = new SqlConnection(cs);
             con.Open();
-            con.Query<DatabaseModel>("UPDATE dbo.CursorPos SET P" + MV.PlayerIAm + "Xcords =" + MV.mycursx + ", P" + MV.PlayerIAm +
+            con.Execute("UPDATE dbo.CursorPos SET P" + MV.PlayerIAm + "Xcords =" + MV.mycursx + ", P" + MV.PlayerIAm +
                 "Ycords = " + MV.mycursy + " WHERE LobbyNumber =" + MV.MyLobby + ";");
 
 
             con.Dispose();
+
+        }
+        public static void UpdatePlayerHealth(int lobby, int player,  int currenthealth, int healthchange)
+        {
+
+            currenthealth += healthchange;
+
+            var cs = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\source\ServerSideBlazor\DataAccessLibrary\Database1.mdf;Integrated Security=True;Connect Timeout=30";
+
+            using var con = new SqlConnection(cs);
+            con.Open();
+
+            con.Execute("UPDATE CursorPos SET P" + player + "Health = " + currenthealth + "WHERE LobbyNumber = " + lobby + "; ");
+
+            con.Dispose();
+
+
 
         }
     }
