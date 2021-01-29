@@ -81,35 +81,37 @@ p1healthadd {
     left:36%;
 }
 
-p1healthslash {
-    animation-name:p1slash;
+healthslash {
+    position:absolute;
+    animation-name:slash;
     animation-duration:1s;
     opacity:0;
     float:left;
     height: 6px;
     width: 12px;
     background-color:grey;
-    transform:translate(160px,52px);
+    left:30%;
+    bottom:9px;
 }
 
-@keyframes p1slash{
+@keyframes slash{
 
 
     10% {
         opacity:100;
     }
     20% {
-        transform:translate(150px,52px);
+        left:27%;
     }
     50% {
-        transform: translate(370px,52px);
+        left:69%;
     }
     80% {
-        transform: translate(370px,52px);
+        left: 69%;
         opacity: 100;
     }
     100% {
-        transform: translate(370px,52px);
+        left: 69%;
         opacity: 0;
     }
 

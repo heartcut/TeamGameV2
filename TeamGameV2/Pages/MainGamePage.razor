@@ -18,28 +18,31 @@
             <ActiveGameComponent lobbynumber="@MV.MyLobby" gamenumber="1" />
 
             <PlayerHealthBar myhealth="DM.P1Health" playercolor="blue" />
-            <HealthAnimation player="1" added="P1Add" subtracted="P1Subtract" />
+            <HealthAnimation added="P1Add" subtracted="P1Subtract" />
 
         </player1window>
         <player2window>
 
             <ActiveGameComponent lobbynumber="@MV.MyLobby" gamenumber="1" />
 
-            <PlayerHealthBar myhealth="6" playercolor="red" />
+            <PlayerHealthBar myhealth="DM.P2Health" playercolor="red" />
+            <HealthAnimation added="P2Add" subtracted="P2Subtract" />
 
         </player2window>
         <player3window>
 
             <ActiveGameComponent lobbynumber="@MV.MyLobby" gamenumber="1" />
 
-            <PlayerHealthBar myhealth="4" playercolor="green" />
+            <PlayerHealthBar myhealth="DM.P3Health" playercolor="green" />
+            <HealthAnimation added="P3Add" subtracted="P3Subtract" />
 
         </player3window>
         <player4window>
 
             <ActiveGameComponent lobbynumber="@MV.MyLobby" gamenumber="1" />
 
-            <PlayerHealthBar myhealth="10" playercolor="yellow" />
+            <PlayerHealthBar myhealth="DM.P4Health" playercolor="yellow" />
+            <HealthAnimation added="P4Add" subtracted="P4Subtract" />
 
 
         </player4window>
@@ -55,6 +58,12 @@
 <div></div>
 <button @onclick="args => PlayerGainedHealth(1,1)">add p1 health</button>
 <button @onclick="args => PlayerLostHealth(1,-1)">minus p1 health</button>
+<button @onclick="args => PlayerGainedHealth(2,1)">add p2 health</button>
+<button @onclick="args => PlayerLostHealth(2,-1)">minus p2 health</button>
+<button @onclick="args => PlayerGainedHealth(3,1)">add p3 health</button>
+<button @onclick="args => PlayerLostHealth(3,-1)">minus p3 health</button>
+<button @onclick="args => PlayerGainedHealth(4,1)">add p4 health</button>
+<button @onclick="args => PlayerLostHealth(4,-1)">minus p5 health</button>
 
 
 
@@ -62,20 +71,55 @@
 {
     public bool P1Add = false;
     public bool P1Subtract = false;
+    public bool P2Add = false;
+    public bool P2Subtract = false;
+    public bool P3Add = false;
+    public bool P3Subtract = false;
+    public bool P4Add = false;
+    public bool P4Subtract = false;
 
     public async Task PlayerLostHealth(int player, int healthchange)
     {
-        P1Subtract = true;
-        await Task.Delay(900);
-        WriteDB.UpdatePlayerHealth(MV.MyLobby, player, DM.P1Health, healthchange);
-        P1Subtract = false;
+        switch (player)
+        {
+            case 1: P1Subtract = true; break;
+            case 2: P2Subtract = true; break;
+            case 3: P3Subtract = true; break;
+            case 4: P4Subtract = true; break;
+            default: break;
+        }
+
+        await Task.Delay(700);
+        WriteDB.UpdatePlayerHealth(MV.MyLobby, player, DM, healthchange);
+        switch (player)
+        {
+            case 1: P1Subtract = false; break;
+            case 2: P2Subtract = false; break;
+            case 3: P3Subtract = false; break;
+            case 4: P4Subtract = false; break;
+            default: break;
+        }
     }
     public async Task PlayerGainedHealth(int player, int healthchange)
     {
-        P1Add = true;
-        await Task.Delay(900);
-        WriteDB.UpdatePlayerHealth(MV.MyLobby, player, DM.P1Health, healthchange);
-        P1Add = false;
+        switch (player)
+        {
+            case 1: P1Add = true; break;
+            case 2: P2Add = true; break;
+            case 3: P3Add = true; break;
+            case 4: P4Add = true; break;
+            default: break;
+        }
+        await Task.Delay(300);
+        WriteDB.UpdatePlayerHealth(MV.MyLobby, player, DM, healthchange);
+        switch (player)
+        {
+            case 1: P1Add = false; break;
+            case 2: P2Add = false; break;
+            case 3: P3Add = false; break;
+            case 4: P4Add = false; break;
+            default: break;
+        }
     }
 
 }

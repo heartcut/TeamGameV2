@@ -1,11 +1,11 @@
 ﻿
-@if (subtracted && player == 1)
+@if (subtracted)
 {
-    <HealthSubtractedAnimation P1Animation="true"/>
+    <healthslash></healthslash>
 }
-@if (added && player ==1 )
+@if (added)
 {
-    <HealthAddedAnimation whichplayer="1"/>
+    <p1healthadd>Health has been added</p1healthadd>
 }
 
 
@@ -13,8 +13,6 @@
 
 @code {
 
-    [Parameter]
-    public int player { get; set; }
     [Parameter]
     public bool added { get; set; }
     [Parameter]

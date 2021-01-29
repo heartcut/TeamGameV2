@@ -61,17 +61,22 @@ namespace TeamGameV2.DatabaseConnection
             con.Dispose();
 
         }
-        public static void UpdatePlayerHealth(int lobby, int player,  int currenthealth, int healthchange)
+        public static void UpdatePlayerHealth(int lobby, int player,  DatabaseModel DM, int healthchange)
         {
-
-            currenthealth += healthchange;
-
+            var newhealth = player switch
+            {
+                1 => DM.P1Health + healthchange,
+                2 => DM.P2Health + healthchange,
+                3 => DM.P3Health + healthchange,
+                4 => DM.P4Health + healthchange,
+                _ => DM.P4Health + healthchange,
+            };
             var cs = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\source\ServerSideBlazor\DataAccessLibrary\Database1.mdf;Integrated Security=True;Connect Timeout=30";
 
             using var con = new SqlConnection(cs);
             con.Open();
 
-            con.Execute("UPDATE CursorPos SET P" + player + "Health = " + currenthealth + "WHERE LobbyNumber = " + lobby + "; ");
+            con.Execute("UPDATE CursorPos SET P" + player + "Health = " + newhealth + "WHERE LobbyNumber = " + lobby + "; ");
 
             con.Dispose();
 
