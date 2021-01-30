@@ -1,15 +1,41 @@
-﻿@if (gamenumber == 1)
+﻿@*parameter for game check can go here later*@
+@if (true)
 {
 
-    <SixNineGame/>
+    <SixNineGame answer1="@var1" answer2="@var2"/>
 
 }
+
 @code {
 
     [Parameter]
+    public DatabaseModel DM { get; set; }
+    [Parameter]
     public int lobbynumber { get; set; }
     [Parameter]
-    public int gamenumber { get; set; }
+    public int playernumber { get; set; }
+    //[Parameter]
+    //public int gamenumber { get; set; }
+
+    public int var1;
+    public int var2;
+    public int var3;
+    public int var4;
+
+    protected override void OnInitialized()
+    {
+        DM = ReadDB.GetVars(lobbynumber);
+
+        switch (playernumber)
+        {
+            case 1: var1 = DM.P1GameVar1; var2 = DM.P1GameVar2; var3 = DM.P1GameVar3; var4 = DM.P1GameVar4; break;
+            case 2: var1 = DM.P2GameVar1; var2 = DM.P2GameVar2; var3 = DM.P2GameVar3; var4 = DM.P2GameVar4; break;
+            case 3: var1 = DM.P3GameVar1; var2 = DM.P3GameVar2; var3 = DM.P3GameVar3; var4 = DM.P3GameVar4; break;
+            case 4: var1 = DM.P4GameVar1; var2 = DM.P4GameVar2; var3 = DM.P4GameVar3; var4 = DM.P4GameVar4; break;
+            default: break;
+        }
+        StateHasChanged();
+    }
 
 
 }

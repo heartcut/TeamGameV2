@@ -5,7 +5,7 @@
     left: 2px;
     top: 2px;
     border: 2px solid grey;
-    cursor: url(/media/bcurs.png) -2 -2,auto;
+/*    cursor: url(/media/bcurs.png) -2 -2,auto;*/
 }
 
 player2window {
@@ -15,7 +15,7 @@ player2window {
     right: 2px;
     top: 2px;
     border: 2px solid grey;
-    cursor: url(/media/rcurs.png) -2 -2,auto;
+/*    cursor: url(/media/rcurs.png) -2 -2,auto;*/
     color: white;
 }
 
@@ -26,7 +26,7 @@ player3window {
     left: 2px;
     bottom: 2px;
     border: 2px solid grey;
-    cursor: url(/media/gcurs.png) -2 -2,auto;
+/*    cursor: url(/media/gcurs.png) -2 -2,auto;*/
     color: white;
 }
 
@@ -37,7 +37,7 @@ player4window {
     right: 2px;
     bottom: 2px;
     border: 2px solid grey;
-    cursor: url(/media/ycurs.png) -2 -2,auto;
+/*    cursor: url(/media/ycurs.png) -2 -2,auto;*/
     color: white;
 }
 

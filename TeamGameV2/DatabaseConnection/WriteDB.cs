@@ -80,7 +80,18 @@ namespace TeamGameV2.DatabaseConnection
 
             con.Dispose();
 
+        }
+        public static void UpdatePlayerHealthMax(int lobby, int player)
+        {
+            
+            var cs = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\source\ServerSideBlazor\DataAccessLibrary\Database1.mdf;Integrated Security=True;Connect Timeout=30";
 
+            using var con = new SqlConnection(cs);
+            con.Open();
+
+            con.Execute("UPDATE CursorPos SET P" + player + "Health = " + 12 + "WHERE LobbyNumber = " + lobby + "; ");
+
+            con.Dispose();
 
         }
     }

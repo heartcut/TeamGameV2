@@ -1,5 +1,7 @@
 
-
+.main {
+    cursor: url(/media/rainbowcurse.png) -2 -2,auto;
+}
 
 html {
     background-color: black;
@@ -37,11 +39,11 @@ lobby-window {
     transform: translate(-50%, -50%);
     width: 1071px;
     height: 603px;
+    
 }
 
 main-window {
-
-    /*border: dashed 5px white;*/
+   /* border: dashed 5px white;*/
     margin: auto;
     width: 95%;
     height: 95vh;
@@ -49,11 +51,28 @@ main-window {
     justify-content: center;
     align-items: center;
     position: relative;
+    
+}
+
+#p1 {
+    cursor: url(/media/bcurs.png) -2 -2,auto;
+}
+
+#p2 {
+    cursor: url(/media/rcurs.png) -2 -2,auto;
+}
+
+#p3 {
+    cursor: url(/media/gcurs.png) -2 -2,auto;
+}
+
+#p4 {
+    cursor: url(/media/ycurs.png) -2 -2,auto;
 }
 
 game-window {
     text-align: center;
-    border: dashed 5px red;
+   /* border: dashed 5px red;*/
     background: black;
     color: white;
     border-radius: 1em;
@@ -81,7 +100,7 @@ cant-select-zone {
     -ms-user-select: none; /* Internet Explorer/Edge */
     user-select: none;
 }
-
+ 
 
 
 #blazor-error-ui {

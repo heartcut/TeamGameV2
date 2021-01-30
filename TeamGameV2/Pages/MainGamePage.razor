@@ -7,7 +7,8 @@
 <div style="color:white;">you are in lobby: @lobbynumber</div>
 <div style="color:white;">you player: @playernumber</div>
 <div style="color:white;">total players in lobby: @DM.PlayersInLobby</div>
-<cant-select-zone @onmousemove="MV.MouseMoved">
+<div style="color:white;">the dead are: @dead</div>
+<cant-select-zone @onmousemove="MV.MouseMoved" id="@MyCursorStyle">
 
     <PlayerCursors DM="DM" MV="MV" MyLobbyNum="lobbynumber" PlayerIAm="playernumber" />
 
@@ -15,33 +16,37 @@
 
         <player1window>
 
-            <ActiveGameComponent lobbynumber="@MV.MyLobby" gamenumber="1" />
+            <ActiveGameComponent lobbynumber="@MV.MyLobby" playernumber="1" />
 
             <PlayerHealthBar myhealth="DM.P1Health" playercolor="blue" />
+
             <HealthAnimation added="P1Add" subtracted="P1Subtract" />
 
         </player1window>
         <player2window>
 
-            <ActiveGameComponent lobbynumber="@MV.MyLobby" gamenumber="1" />
+            <ActiveGameComponent lobbynumber="@MV.MyLobby" playernumber="2" />
 
             <PlayerHealthBar myhealth="DM.P2Health" playercolor="red" />
+
             <HealthAnimation added="P2Add" subtracted="P2Subtract" />
 
         </player2window>
         <player3window>
 
-            <ActiveGameComponent lobbynumber="@MV.MyLobby" gamenumber="1" />
+            <ActiveGameComponent lobbynumber="@MV.MyLobby" playernumber="3" />
 
             <PlayerHealthBar myhealth="DM.P3Health" playercolor="green" />
+
             <HealthAnimation added="P3Add" subtracted="P3Subtract" />
 
         </player3window>
         <player4window>
 
-            <ActiveGameComponent lobbynumber="@MV.MyLobby" gamenumber="1" />
+            <ActiveGameComponent lobbynumber="@MV.MyLobby" playernumber="4" />
 
             <PlayerHealthBar myhealth="DM.P4Health" playercolor="yellow" />
+
             <HealthAnimation added="P4Add" subtracted="P4Subtract" />
 
 
@@ -69,57 +74,5 @@
 
 @code
 {
-    public bool P1Add = false;
-    public bool P1Subtract = false;
-    public bool P2Add = false;
-    public bool P2Subtract = false;
-    public bool P3Add = false;
-    public bool P3Subtract = false;
-    public bool P4Add = false;
-    public bool P4Subtract = false;
-
-    public async Task PlayerLostHealth(int player, int healthchange)
-    {
-        switch (player)
-        {
-            case 1: P1Subtract = true; break;
-            case 2: P2Subtract = true; break;
-            case 3: P3Subtract = true; break;
-            case 4: P4Subtract = true; break;
-            default: break;
-        }
-
-        await Task.Delay(700);
-        WriteDB.UpdatePlayerHealth(MV.MyLobby, player, DM, healthchange);
-        switch (player)
-        {
-            case 1: P1Subtract = false; break;
-            case 2: P2Subtract = false; break;
-            case 3: P3Subtract = false; break;
-            case 4: P4Subtract = false; break;
-            default: break;
-        }
-    }
-    public async Task PlayerGainedHealth(int player, int healthchange)
-    {
-        switch (player)
-        {
-            case 1: P1Add = true; break;
-            case 2: P2Add = true; break;
-            case 3: P3Add = true; break;
-            case 4: P4Add = true; break;
-            default: break;
-        }
-        await Task.Delay(300);
-        WriteDB.UpdatePlayerHealth(MV.MyLobby, player, DM, healthchange);
-        switch (player)
-        {
-            case 1: P1Add = false; break;
-            case 2: P2Add = false; break;
-            case 3: P3Add = false; break;
-            case 4: P4Add = false; break;
-            default: break;
-        }
-    }
 
 }

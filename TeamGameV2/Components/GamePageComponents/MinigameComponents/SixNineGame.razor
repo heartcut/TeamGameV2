@@ -27,8 +27,8 @@
     <span @onclick="(() => IsSix(30))">@sna[30]</span> <span @onclick="(() => IsSix(31))">@sna[31]</span>
 </div>
 <div class="sixnine">@status</div>
-<div class="sixnine">@rightanswer</div>
-<div class="sixnine">@wronganswer</div>
+@*<div class="sixnine">@rightanswer</div>
+<div class="sixnine">@wronganswer</div>*@
 
 
 @code {
@@ -37,7 +37,7 @@
     public int answer1 { get; set; }
     [Parameter]
     public int answer2 { get; set; }
-    
+
 
     //this is the onload overridded method
     //you can do some kind of wait stuff idk but it works for now
@@ -68,14 +68,14 @@
             }
             rightanswer++;
         }
-        else if (wronganswer >= 2)
+        else if (wronganswer >= 1)
         {
             status = "youlose";
         }
         else
         {
             wronganswer++;
-            status = wronganswer + " wronganswer" + rightanswer + " right answer";
+            //status = wronganswer + " wronganswer" + rightanswer + " right answer";
         }
     }
 
