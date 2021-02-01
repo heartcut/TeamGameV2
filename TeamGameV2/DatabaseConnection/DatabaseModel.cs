@@ -47,6 +47,11 @@ namespace TeamGameV2.DatabaseConnection
         public int P3Health { get; set; }
         public int P4Health { get; set; }
 
+        public int P1ingame { get; set; }
+        public int P2ingame { get; set; }
+        public int P3ingame { get; set; }
+        public int P4ingame { get; set; }
+
         public int GameStarted { get; set; }
 
         public string P1Present { get; set; }
@@ -54,6 +59,10 @@ namespace TeamGameV2.DatabaseConnection
         public string P3Present { get; set; }
         public string P4Present { get; set; }
 
+        public static void Update()
+        {
+            
+        }
 
     }
 }

@@ -94,5 +94,37 @@ namespace TeamGameV2.DatabaseConnection
             con.Dispose();
 
         }
+        public static void GameStarted(int lobnumber)
+        {
+            var cs = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\source\ServerSideBlazor\DataAccessLibrary\Database1.mdf;Integrated Security=True;Connect Timeout=30";
+
+            using var con = new SqlConnection(cs);
+            con.Open();
+            con.Execute("UPDATE CursorPos SET P1ingame = 1, P2ingame = 1, P3ingame = 1, P4ingame = 1 WHERE LobbyNumber = " + lobnumber + "; ");
+
+            con.Dispose();
+
+        }
+        public static void ChangeInGame(int lobnumber,int player, int newingamestatus)
+        {
+            var cs = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\source\ServerSideBlazor\DataAccessLibrary\Database1.mdf;Integrated Security=True;Connect Timeout=30";
+
+            using var con = new SqlConnection(cs);
+            con.Open();
+            con.Execute("UPDATE CursorPos SET P"+player+"ingame = "+newingamestatus+" WHERE LobbyNumber = " + lobnumber + "; ");
+
+            con.Dispose();
+
+        }
+        public static void UpdateGameVars(int lobnumber, int player, int[] vars)
+        {
+            var cs = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\source\ServerSideBlazor\DataAccessLibrary\Database1.mdf;Integrated Security=True;Connect Timeout=30";
+
+            using var con = new SqlConnection(cs);
+            con.Open();
+            con.Execute("UPDATE CursorPos SET P"+player+"GameVar1 = "+vars[0]+ ", P" + player + "GameVar2 = " + vars[1] + ", P" + player + "GameVar3 = " + vars[2] + ", P" + player + "GameVar4 = " + vars[3] + " WHERE LobbyNumber = " + lobnumber + "; ");
+            con.Dispose();
+
+        }
     }
 }

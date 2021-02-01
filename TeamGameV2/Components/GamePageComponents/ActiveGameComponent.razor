@@ -1,8 +1,16 @@
 ﻿@*parameter for game check can go here later*@
-@if (true)
+@if (ingame==1)
 {
 
-    <SixNineGame answer1="@var1" answer2="@var2"/>
+    <SixNineGame lobbynumber="@lobbynumber" playernumber="@playernumber" answer1="@var1" answer2="@var2" />
+
+
+
+}
+@if (ingame == 0)
+{
+
+    <div>Loading next game</div>
 
 }
 
@@ -14,26 +22,38 @@
     public int lobbynumber { get; set; }
     [Parameter]
     public int playernumber { get; set; }
+    [Parameter]
+    public int ingame { get; set; }
+    [Parameter]
+    public int var1{ get; set; }
+    [Parameter]
+    public int var2 { get; set; }
+    [Parameter]
+    public int var3 { get; set; }
+    [Parameter]
+    public int var4 { get; set; }
+
+
     //[Parameter]
     //public int gamenumber { get; set; }
-
-    public int var1;
-    public int var2;
-    public int var3;
-    public int var4;
+    public int game;
+    //public int var1;
+    //public int var2;
+    //public int var3;
+    //public int var4;
 
     protected override void OnInitialized()
     {
-        DM = ReadDB.GetVars(lobbynumber);
+        //DM = ReadDB.GetVars(lobbynumber);
 
-        switch (playernumber)
-        {
-            case 1: var1 = DM.P1GameVar1; var2 = DM.P1GameVar2; var3 = DM.P1GameVar3; var4 = DM.P1GameVar4; break;
-            case 2: var1 = DM.P2GameVar1; var2 = DM.P2GameVar2; var3 = DM.P2GameVar3; var4 = DM.P2GameVar4; break;
-            case 3: var1 = DM.P3GameVar1; var2 = DM.P3GameVar2; var3 = DM.P3GameVar3; var4 = DM.P3GameVar4; break;
-            case 4: var1 = DM.P4GameVar1; var2 = DM.P4GameVar2; var3 = DM.P4GameVar3; var4 = DM.P4GameVar4; break;
-            default: break;
-        }
+        //switch (playernumber)
+        //{
+        //    case 1: var1 = DM.P1GameVar1; var2 = DM.P1GameVar2; var3 = DM.P1GameVar3; var4 = DM.P1GameVar4; break;
+        //    case 2: var1 = DM.P2GameVar1; var2 = DM.P2GameVar2; var3 = DM.P2GameVar3; var4 = DM.P2GameVar4; break;
+        //    case 3: var1 = DM.P3GameVar1; var2 = DM.P3GameVar2; var3 = DM.P3GameVar3; var4 = DM.P3GameVar4; break;
+        //    case 4: var1 = DM.P4GameVar1; var2 = DM.P4GameVar2; var3 = DM.P4GameVar3; var4 = DM.P4GameVar4; break;
+        //    default: break;
+        //}
         StateHasChanged();
     }
 

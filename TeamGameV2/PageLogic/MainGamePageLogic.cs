@@ -25,7 +25,7 @@ namespace TeamGameV2.PageLogic
 
         [Parameter]
         public int lobbynumber { get; set; }
-        [Parameter] 
+        [Parameter]
         public int playernumber { get; set; }
 
         protected DatabaseModel DM = new DatabaseModel();
@@ -36,7 +36,7 @@ namespace TeamGameV2.PageLogic
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
             DM = ReadDB.GetVars(lobbynumber);
-            
+
             //js the three below
             var dimension = await Service.GetDimensions();
             MV.Height = dimension.Height;
@@ -45,6 +45,7 @@ namespace TeamGameV2.PageLogic
             MV.MyLobby = lobbynumber;
             MyCursorStyle = "p" + MV.PlayerIAm;
             WriteDB.UpdateMyMouseCoords(MV);
+            //WriteDB.GameStarted(lobbynumber);
             StateHasChanged();
 
         }
@@ -64,6 +65,7 @@ namespace TeamGameV2.PageLogic
         public bool P3Subtract = false;
         public bool P4Add = false;
         public bool P4Subtract = false;
+        
 
         public async Task PlayerLostHealth(int player, int healthchange)
         {
@@ -72,7 +74,7 @@ namespace TeamGameV2.PageLogic
             {
                 case 1:
                     if (DM.P1Health + healthchange > 0) { P1Subtract = true; }
-                    else { update = false; PlayerDied(player); } 
+                    else { update = false; PlayerDied(player); }
                     break;
                 case 2:
                     if (DM.P2Health + healthchange > 0) { P2Subtract = true; }
@@ -113,16 +115,16 @@ namespace TeamGameV2.PageLogic
                     else { update = false; P1Add = true; WriteDB.UpdatePlayerHealthMax(MV.MyLobby, player); }
                     break;
                 case 2:
-                    if (DM.P2Health + healthchange <= 12) { P1Add = true; }
-                    else { update = false; P1Add = true; WriteDB.UpdatePlayerHealthMax(MV.MyLobby, player); }
+                    if (DM.P2Health + healthchange <= 12) { P2Add = true; }
+                    else { update = false; P2Add = true; WriteDB.UpdatePlayerHealthMax(MV.MyLobby, player); }
                     break;
                 case 3:
-                    if (DM.P3Health + healthchange <= 12) { P1Add = true; }
-                    else { update = false; P1Add = true; WriteDB.UpdatePlayerHealthMax(MV.MyLobby, player); }
+                    if (DM.P3Health + healthchange <= 12) { P3Add = true; }
+                    else { update = false; P3Add = true; WriteDB.UpdatePlayerHealthMax(MV.MyLobby, player); }
                     break;
                 case 4:
-                    if (DM.P4Health + healthchange <= 12) { P1Add = true; }
-                    else { update = false; P1Add = true; WriteDB.UpdatePlayerHealthMax(MV.MyLobby, player); }
+                    if (DM.P4Health + healthchange <= 12) { P4Add = true; }
+                    else { update = false; P4Add = true; WriteDB.UpdatePlayerHealthMax(MV.MyLobby, player); }
                     break;
                 default: break;
             }
@@ -141,28 +143,28 @@ namespace TeamGameV2.PageLogic
                 default: break;
             }
         }
-        public async Task PlayerFinishedGame(int player, bool won, int lobby)
-        {
-            //need to start new game here
 
-
-
-        }
-        public static void GenerateNewGame()
-        {
-
-
-
-
-        }
-        public static string dead;
-        public static void PlayerDied(int player)
+        public string dead;
+        public void PlayerDied(int player)
         {
 
             dead = dead + " " + player.ToString();
-            
-        }
 
+        }
+        public static async Task PlayerFinishedGame(int player, bool won, int lobby)
+        {
+            //need to start new game here
+            WriteDB.ChangeInGame(lobby, player, 0);
+            //if (won) { } else { }
+            MinigameGeneration.GenerateNewGame(player, lobby);
+            await Task.Delay(2000);
+            WriteDB.ChangeInGame(lobby, player, 1);
+            
+
+
+
+
+        }
     }
     
 }

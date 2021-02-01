@@ -30,14 +30,19 @@
 @*<div class="sixnine">@rightanswer</div>
 <div class="sixnine">@wronganswer</div>*@
 
-
 @code {
+
+
 
     [Parameter]
     public int answer1 { get; set; }
     [Parameter]
     public int answer2 { get; set; }
-
+    [Parameter]
+    public int playernumber { get; set; }
+    [Parameter]
+    public int lobbynumber { get; set; }
+    
 
     //this is the onload overridded method
     //you can do some kind of wait stuff idk but it works for now
@@ -46,6 +51,7 @@
         //takes the position of the variable from the db and makes it a 6
         sna[answer1] = "6";
         sna[answer2] = "6";
+        StateHasChanged();
     }
     public string[] sna = new string[32]
     {
@@ -53,7 +59,7 @@
             "9","9","9","9","9","9","9","9",
             "9","9","9","9","9","9","9","9",
             "9","9","9","9","9","9","9","9"
-        };
+    };
     public string status;
     public int rightanswer = 0;
     public int wronganswer = 0;
@@ -65,6 +71,9 @@
             if (rightanswer == 1)
             {
                 status = "youwin!";
+                MainGamePageLogic.PlayerFinishedGame(playernumber,true,lobbynumber);
+                StateHasChanged();
+
             }
             rightanswer++;
         }
