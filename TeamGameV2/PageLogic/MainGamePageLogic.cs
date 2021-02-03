@@ -45,7 +45,7 @@ namespace TeamGameV2.PageLogic
             MV.MyLobby = lobbynumber;
             MyCursorStyle = "p" + MV.PlayerIAm;
             WriteDB.UpdateMyMouseCoords(MV);
-            //WriteDB.GameStarted(lobbynumber);
+            
             StateHasChanged();
 
         }
@@ -54,39 +54,32 @@ namespace TeamGameV2.PageLogic
         //onafter is only called once afterwards so i used it to update the db and not get doubles
         protected override void OnInitialized()
         {
-
+            WriteDB.GameStarted(lobbynumber);
         }
 
-        public bool P1Add = false;
-        public bool P1Subtract = false;
-        public bool P2Add = false;
-        public bool P2Subtract = false;
-        public bool P3Add = false;
-        public bool P3Subtract = false;
-        public bool P4Add = false;
-        public bool P4Subtract = false;
-        
 
-        public async Task PlayerLostHealth(int player, int healthchange)
+        public static async Task PlayerLostHealth(int player, int healthchange, int lobb)
         {
             bool update = true;
+            DatabaseModel HealthVars = ReadDB.GetVars(lobb);
             switch (player)
             {
+                
                 case 1:
-                    if (DM.P1Health + healthchange > 0) { P1Subtract = true; }
-                    else { update = false; PlayerDied(player); }
+                    if (HealthVars.P1Health + healthchange > 0) { WriteDB.PlayerHealthAnimationChange(lobb, 1, -1); }
+                    else { update = false; }//playerdied
                     break;
                 case 2:
-                    if (DM.P2Health + healthchange > 0) { P2Subtract = true; }
-                    else { update = false; PlayerDied(player); }
+                    if (HealthVars.P2Health + healthchange > 0) { WriteDB.PlayerHealthAnimationChange(lobb, 2, -1); }
+                    else { update = false; }  //playerdied
                     break;
                 case 3:
-                    if (DM.P3Health + healthchange > 0) { P3Subtract = true; }
-                    else { update = false; PlayerDied(player); }
+                    if (HealthVars.P3Health + healthchange > 0) { WriteDB.PlayerHealthAnimationChange(lobb, 3, -1); }
+                    else { update = false; } //playerdied
                     break;
                 case 4:
-                    if (DM.P4Health + healthchange > 0) { P4Subtract = true; }
-                    else { update = false; PlayerDied(player); }
+                    if (HealthVars.P4Health + healthchange > 0) { WriteDB.PlayerHealthAnimationChange(lobb, 4, -1); }
+                    else { update = false; } //playerdied
                     break;
                 default: break;
             }
@@ -94,74 +87,105 @@ namespace TeamGameV2.PageLogic
             await Task.Delay(700);
             if (update)
             {
-                WriteDB.UpdatePlayerHealth(MV.MyLobby, player, DM, healthchange);
+                switch (player)
+                {
+                    case 1: WriteDB.UpdatePlayerHealth(lobb, player, HealthVars.P1Health, healthchange); break;
+                    case 2: WriteDB.UpdatePlayerHealth(lobb, player, HealthVars.P2Health, healthchange); break;
+                    case 3: WriteDB.UpdatePlayerHealth(lobb, player, HealthVars.P3Health, healthchange); break;
+                    case 4: WriteDB.UpdatePlayerHealth(lobb, player, HealthVars.P4Health, healthchange); break;
+                    default: break;
+                }
             }
             switch (player)
             {
-                case 1: P1Subtract = false; break;
-                case 2: P2Subtract = false; break;
-                case 3: P3Subtract = false; break;
-                case 4: P4Subtract = false; break;
+                case 1: WriteDB.PlayerHealthAnimationChange(lobb, 1, 0); break;
+                case 2: WriteDB.PlayerHealthAnimationChange(lobb, 2, 0); break;
+                case 3: WriteDB.PlayerHealthAnimationChange(lobb, 3, 0); break;
+                case 4: WriteDB.PlayerHealthAnimationChange(lobb, 4, 0); break;
                 default: break;
             }
         }
-        public async Task PlayerGainedHealth(int player, int healthchange)
+        public static async Task PlayerGainedHealth(int player, int healthchange, int lobb)
         {
             bool update = true;
+            DatabaseModel HealthVars = ReadDB.GetVars(lobb);
             switch (player)
             {
                 case 1:
-                    if (DM.P1Health + healthchange <= 12) { P1Add = true; }
-                    else { update = false; P1Add = true; WriteDB.UpdatePlayerHealthMax(MV.MyLobby, player); }
+                    if (HealthVars.P1Health + healthchange <= 12) { WriteDB.PlayerHealthAnimationChange(lobb, 1, 1); }
+                    else { update = false; WriteDB.PlayerHealthAnimationChange(lobb, 1, 1); WriteDB.UpdatePlayerHealthMax(lobb, player); }
                     break;
                 case 2:
-                    if (DM.P2Health + healthchange <= 12) { P2Add = true; }
-                    else { update = false; P2Add = true; WriteDB.UpdatePlayerHealthMax(MV.MyLobby, player); }
+                    if (HealthVars.P2Health + healthchange <= 12) { WriteDB.PlayerHealthAnimationChange(lobb, 2, 1); }
+                    else { update = false; WriteDB.PlayerHealthAnimationChange(lobb, 2, 1); WriteDB.UpdatePlayerHealthMax(lobb, player); }
                     break;
                 case 3:
-                    if (DM.P3Health + healthchange <= 12) { P3Add = true; }
-                    else { update = false; P3Add = true; WriteDB.UpdatePlayerHealthMax(MV.MyLobby, player); }
+                    if (HealthVars.P3Health + healthchange <= 12) { WriteDB.PlayerHealthAnimationChange(lobb, 3, 1); }
+                    else { update = false; WriteDB.PlayerHealthAnimationChange(lobb, 3, 1); WriteDB.UpdatePlayerHealthMax(lobb, player); }
                     break;
                 case 4:
-                    if (DM.P4Health + healthchange <= 12) { P4Add = true; }
-                    else { update = false; P4Add = true; WriteDB.UpdatePlayerHealthMax(MV.MyLobby, player); }
+                    if (HealthVars.P4Health + healthchange <= 12) { WriteDB.PlayerHealthAnimationChange(lobb, 4, 1); }
+                    else { update = false; WriteDB.PlayerHealthAnimationChange(lobb, 4, 1); WriteDB.UpdatePlayerHealthMax(lobb, player); }
                     break;
                 default: break;
             }
             await Task.Delay(300);
             if (update)
             {
-                WriteDB.UpdatePlayerHealth(MV.MyLobby, player, DM, healthchange);
-
+                
+                switch (player)
+                {
+                    case 1: WriteDB.UpdatePlayerHealth(lobb, player, HealthVars.P1Health, healthchange); break;
+                    case 2: WriteDB.UpdatePlayerHealth(lobb, player, HealthVars.P2Health, healthchange); break;
+                    case 3: WriteDB.UpdatePlayerHealth(lobb, player, HealthVars.P3Health, healthchange); break;
+                    case 4: WriteDB.UpdatePlayerHealth(lobb, player, HealthVars.P4Health, healthchange); break;
+                    default: break;
+                }
             }
             switch (player)
             {
-                case 1: P1Add = false; break;
-                case 2: P2Add = false; break;
-                case 3: P3Add = false; break;
-                case 4: P4Add = false; break;
+                case 1: WriteDB.PlayerHealthAnimationChange(lobb, 1, 0); break;
+                case 2: WriteDB.PlayerHealthAnimationChange(lobb, 2, 0); break;
+                case 3: WriteDB.PlayerHealthAnimationChange(lobb, 3, 0); break;
+                case 4: WriteDB.PlayerHealthAnimationChange(lobb, 4, 0); break;
                 default: break;
             }
         }
 
-        public string dead;
-        public void PlayerDied(int player)
-        {
+        //public string dead;
+        //public void PlayerDied(int player)
+        //{
 
-            dead = dead + " " + player.ToString();
+        //    dead = dead + " " + player.ToString();
 
-        }
+        //}
         public static async Task PlayerFinishedGame(int player, bool won, int lobby)
         {
             //need to start new game here
             WriteDB.ChangeInGame(lobby, player, 0);
-            //if (won) { } else { }
+            if (won)
+            {
+                switch (player)
+                {
+                    //because of the static method that im in
+                    // wil probably need to add varibale to the db
+                    //atheat is for the animations which will make them server wide and everyone will see
+                    //which is not a bad thing
+                    // and it will also fix my problem of not being able to call the function
+                    //do this when ur not drunk idiot
+
+                    case 1: PlayerGainedHealth(2, 3, lobby); break;
+                    case 2: PlayerGainedHealth(3, 3, lobby); break;
+                    case 3: PlayerGainedHealth(4, 3, lobby); break;
+                    case 4: PlayerGainedHealth(1, 3, lobby); break;
+                    default: break;
+                }
+
+            } 
+            else { }
             MinigameGeneration.GenerateNewGame(player, lobby);
             await Task.Delay(2000);
             WriteDB.ChangeInGame(lobby, player, 1);
-            
-
-
 
 
         }

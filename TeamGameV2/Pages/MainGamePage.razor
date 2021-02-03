@@ -7,7 +7,7 @@
 <div style="color:white;">you are in lobby: @lobbynumber</div>
 <div style="color:white;">you player: @playernumber</div>
 <div style="color:white;">total players in lobby: @DM.PlayersInLobby</div>
-<div style="color:white;">the dead are: @dead</div>
+@*<div style="color:white;">the dead are: @dead</div>*@
 <div style="color:white;">ingame of p1 @DM.P1ingame</div>
 <cant-select-zone @onmousemove="MV.MouseMoved" id="@MyCursorStyle">
 
@@ -21,7 +21,7 @@
 
             <PlayerHealthBar myhealth="DM.P1Health" playercolor="blue" />
 
-            <HealthAnimation added="P1Add" subtracted="P1Subtract" />
+            <HealthAnimation animationtype="DM.P1HealthChange" />
 
         </player1window>
         <player2window>
@@ -30,7 +30,7 @@
 
             <PlayerHealthBar myhealth="DM.P2Health" playercolor="red" />
 
-            <HealthAnimation added="P2Add" subtracted="P2Subtract" />
+            <HealthAnimation animationtype="DM.P2HealthChange" />
 
         </player2window>
         <player3window>
@@ -39,7 +39,7 @@
 
             <PlayerHealthBar myhealth="DM.P3Health" playercolor="green" />
 
-            <HealthAnimation added="P3Add" subtracted="P3Subtract" />
+            <HealthAnimation animationtype="DM.P3HealthChange" />
 
         </player3window>
         <player4window>
@@ -48,7 +48,7 @@
 
             <PlayerHealthBar myhealth="DM.P4Health" playercolor="yellow" />
 
-            <HealthAnimation added="P4Add" subtracted="P4Subtract" />
+            <HealthAnimation animationtype="DM.P4HealthChange" />
 
 
         </player4window>
@@ -62,14 +62,14 @@
 <a style="color:white;">@MV.Width</a>
 <a style="color:white;">@MV.Height</a>
 <div></div>
-<button @onclick="args => PlayerGainedHealth(1,1)">add p1 health</button>
-<button @onclick="args => PlayerLostHealth(1,-1)">minus p1 health</button>
-<button @onclick="args => PlayerGainedHealth(2,1)">add p2 health</button>
-<button @onclick="args => PlayerLostHealth(2,-1)">minus p2 health</button>
-<button @onclick="args => PlayerGainedHealth(3,1)">add p3 health</button>
-<button @onclick="args => PlayerLostHealth(3,-1)">minus p3 health</button>
-<button @onclick="args => PlayerGainedHealth(4,1)">add p4 health</button>
-<button @onclick="args => PlayerLostHealth(4,-1)">minus p5 health</button>
+<button @onclick="args => PlayerGainedHealth(1,1,MV.MyLobby)">add p1 health</button>
+<button @onclick="args => PlayerLostHealth(1,-1,MV.MyLobby)">minus p1 health</button>
+<button @onclick="args => PlayerGainedHealth(2,1,MV.MyLobby)">add p2 health</button>
+<button @onclick="args => PlayerLostHealth(2,-1,MV.MyLobby)">minus p2 health</button>
+<button @onclick="args => PlayerGainedHealth(3,1,MV.MyLobby)">add p3 health</button>
+<button @onclick="args => PlayerLostHealth(3,-1,MV.MyLobby)">minus p3 health</button>
+<button @onclick="args => PlayerGainedHealth(4,1,MV.MyLobby)">add p4 health</button>
+<button @onclick="args => PlayerLostHealth(4,-1,MV.MyLobby)">minus p5 health</button>
 
 
 

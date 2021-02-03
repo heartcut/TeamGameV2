@@ -61,16 +61,24 @@ namespace TeamGameV2.DatabaseConnection
             con.Dispose();
 
         }
-        public static void UpdatePlayerHealth(int lobby, int player,  DatabaseModel DM, int healthchange)
+        public static void PlayerHealthAnimationChange(int lobby, int player, int animation)
         {
-            var newhealth = player switch
-            {
-                1 => DM.P1Health + healthchange,
-                2 => DM.P2Health + healthchange,
-                3 => DM.P3Health + healthchange,
-                4 => DM.P4Health + healthchange,
-                _ => DM.P4Health + healthchange,
-            };
+
+            var cs = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\source\ServerSideBlazor\DataAccessLibrary\Database1.mdf;Integrated Security=True;Connect Timeout=30";
+
+            using var con = new SqlConnection(cs);
+            con.Open();
+
+            con.Execute("UPDATE CursorPos SET P" + player + "HealthChange = " + animation + "WHERE LobbyNumber = " + lobby + "; ");
+
+            con.Dispose();
+
+
+        }
+        public static void UpdatePlayerHealth(int lobby, int player, int currenthealth, int healthchange)
+        {
+            int newhealth = currenthealth + healthchange;
+
             var cs = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\source\ServerSideBlazor\DataAccessLibrary\Database1.mdf;Integrated Security=True;Connect Timeout=30";
 
             using var con = new SqlConnection(cs);
@@ -100,7 +108,8 @@ namespace TeamGameV2.DatabaseConnection
 
             using var con = new SqlConnection(cs);
             con.Open();
-            con.Execute("UPDATE CursorPos SET P1ingame = 1, P2ingame = 1, P3ingame = 1, P4ingame = 1 WHERE LobbyNumber = " + lobnumber + "; ");
+            //varibale upkeep for when the game starts
+            con.Execute("UPDATE CursorPos SET P1ingame = 1, P2ingame = 1, P3ingame = 1, P4ingame = 1, P1Health = 6, P2Health = 6, P3Health = 6, P4Health = 6 WHERE LobbyNumber = " + lobnumber + "; ");
 
             con.Dispose();
 

@@ -1,9 +1,9 @@
 ﻿
-@if (subtracted)
+@if (animationtype==-1)
 {
     <healthslash></healthslash>
 }
-@if (added)
+@if (animationtype==1)
 {
     <p1healthadd>Health has been added</p1healthadd>
 }
@@ -14,8 +14,6 @@
 @code {
 
     [Parameter]
-    public bool added { get; set; }
-    [Parameter]
-    public bool subtracted { get; set; }
+    public int animationtype { get; set; }
 
 }

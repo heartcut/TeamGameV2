@@ -59,6 +59,11 @@ namespace TeamGameV2.DatabaseConnection
         public string P3Present { get; set; }
         public string P4Present { get; set; }
 
+        public int P1HealthChange { get; set; }
+        public int P2HealthChange { get; set; }
+        public int P3HealthChange { get; set; }
+        public int P4HealthChange { get; set; }
+
         public static void Update()
         {
             
