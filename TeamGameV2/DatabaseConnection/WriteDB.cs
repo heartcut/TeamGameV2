@@ -32,7 +32,7 @@ namespace TeamGameV2.DatabaseConnection
             con.Open();
             int players = con.QueryFirst<int>(@"SELECT PlayersInLobby FROM CursorPos WHERE LobbyNumber=" + lobnumber);
             players=players-1;
-            con.Execute("UPDATE CursorPos SET PlayersInLobby = " + players + ", P"+playernum+"Present = 0 WHERE LobbyNumber = " + lobnumber + "; ");
+            con.Execute("UPDATE CursorPos SET PlayersInLobby = " + players + ", P"+playernum+"Present = 0, GameStarted = 0 WHERE LobbyNumber = " + lobnumber + "; ");
 
             con.Dispose();
 
@@ -109,7 +109,7 @@ namespace TeamGameV2.DatabaseConnection
             using var con = new SqlConnection(cs);
             con.Open();
             //varibale upkeep for when the game starts
-            con.Execute("UPDATE CursorPos SET P1ingame = 1, P2ingame = 1, P3ingame = 1, P4ingame = 1, P1Health = 6, P2Health = 6, P3Health = 6, P4Health = 6 WHERE LobbyNumber = " + lobnumber + "; ");
+            con.Execute("UPDATE CursorPos SET P1ingame = 1, P2ingame = 1, P3ingame = 1, P4ingame = 1, P1Health = 6, P2Health = 6, P3Health = 6, P4Health = 6, GameStarted = 1 WHERE LobbyNumber = " + lobnumber + "; ");
 
             con.Dispose();
 

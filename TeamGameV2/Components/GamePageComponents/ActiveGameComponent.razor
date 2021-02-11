@@ -1,5 +1,5 @@
 ﻿@*parameter for game check can go here later*@
-@if (ingame==1)
+@if (ingame == 1)
 {
 
     <SixNineGame lobbynumber="@lobbynumber" playernumber="@playernumber" answer1="@var1" answer2="@var2" />
@@ -13,6 +13,10 @@
     <div>Loading next game</div>
 
 }
+@if (ingame == -1)
+{
+    <div>oh no im dead</div>
+}
 
 @code {
 
@@ -25,7 +29,7 @@
     [Parameter]
     public int ingame { get; set; }
     [Parameter]
-    public int var1{ get; set; }
+    public int var1 { get; set; }
     [Parameter]
     public int var2 { get; set; }
     [Parameter]

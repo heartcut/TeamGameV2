@@ -12,7 +12,8 @@
 <cant-select-zone @onmousemove="MV.MouseMoved" id="@MyCursorStyle">
 
     <PlayerCursors DM="DM" MV="MV" MyLobbyNum="lobbynumber" PlayerIAm="playernumber" />
-
+    @if (DM.GameStarted == 1)
+    {
     <game-window>
 
         <player1window>
@@ -54,7 +55,8 @@
         </player4window>
 
     </game-window>
-
+    }
+    else { <game-window style="color:yellow;">wait for players chill </game-window> }
 
 </cant-select-zone>
 <a style="color:white;">@MV.mycursx</a>

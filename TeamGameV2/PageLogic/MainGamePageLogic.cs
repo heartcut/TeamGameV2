@@ -54,7 +54,7 @@ namespace TeamGameV2.PageLogic
         //onafter is only called once afterwards so i used it to update the db and not get doubles
         protected override void OnInitialized()
         {
-            WriteDB.GameStarted(lobbynumber);
+            
         }
 
 
@@ -67,19 +67,19 @@ namespace TeamGameV2.PageLogic
                 
                 case 1:
                     if (HealthVars.P1Health + healthchange > 0) { WriteDB.PlayerHealthAnimationChange(lobb, 1, -1); }
-                    else { update = false; }//playerdied
+                    else { update = false; WriteDB.ChangeInGame(lobb, player, -1); }//playerdied
                     break;
                 case 2:
                     if (HealthVars.P2Health + healthchange > 0) { WriteDB.PlayerHealthAnimationChange(lobb, 2, -1); }
-                    else { update = false; }  //playerdied
+                    else { update = false; WriteDB.ChangeInGame(lobb, player, -1); }  //playerdied
                     break;
                 case 3:
                     if (HealthVars.P3Health + healthchange > 0) { WriteDB.PlayerHealthAnimationChange(lobb, 3, -1); }
-                    else { update = false; } //playerdied
+                    else { update = false; WriteDB.ChangeInGame(lobb, player, -1); } //playerdied
                     break;
                 case 4:
                     if (HealthVars.P4Health + healthchange > 0) { WriteDB.PlayerHealthAnimationChange(lobb, 4, -1); }
-                    else { update = false; } //playerdied
+                    else { update = false; WriteDB.ChangeInGame(lobb, player, -1); } //playerdied
                     break;
                 default: break;
             }
@@ -188,6 +188,14 @@ namespace TeamGameV2.PageLogic
             WriteDB.ChangeInGame(lobby, player, 1);
 
 
+        }
+        public static async Task StartGame(int lobby)
+        {
+            MinigameGeneration.GenerateNewGame(1, lobby);
+            MinigameGeneration.GenerateNewGame(2, lobby);
+            MinigameGeneration.GenerateNewGame(3, lobby);
+            MinigameGeneration.GenerateNewGame(4, lobby);
+            WriteDB.GameStarted(lobby);
         }
     }
     
